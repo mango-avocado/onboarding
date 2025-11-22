@@ -86,6 +86,14 @@ To verify the hooks are working:
    rm test.txt
    ```
 
+## Bypassing Hooks When Needed
+
+In rare cases where you need to commit content with AI indicators, you can bypass the hooks using the `--no-verify` flag:
+
+```bash
+git commit --no-verify -m "your commit message"
+```
+
 ## Notes
 
 - These hooks are **repository-specific** and must be installed in each repo where you want them active
