@@ -1,0 +1,19 @@
+# Configure pre-commit to reuse the AI indicator guard scripts.
+# Both hooks run locally from .config/ai-hooks.
+
+repos:
+  - repo: local
+    hooks:
+      - id: ai-diff-guard
+        name: Prevent AI indicators in staged content
+        entry: .config/ai-hooks/ai_guard.py
+        language: system
+        args: [pre-commit]
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: ai-commit-msg-guard
+        name: Prevent AI indicators in commit messages
+        entry: .config/ai-hooks/ai_guard.py
+        language: system
+        args: [commit-msg]
+        stages: [commit-msg]

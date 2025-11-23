@@ -79,21 +79,28 @@ Verify that SpecStory is logging correctly by running a short AI interaction and
 
 > Reminder to update your [status](https://forms.gle/SLXdJk3SbjHCYnpd9) once you have completed this step.
 
-## 5) Install Git Hooks
+## 5) Install AI Guard Hooks
 
-To help you avoid accidentally committing AI indicators, we've created git hooks that automatically block commits and pushes containing AI references. These hooks scan your commit messages and code for references to AI tools, model names, and common AI-generated phrases.
+We provide a `pre-commit` configuration that blocks explicit AI indicators in both your staged changes and commit messages. The guard looks for tool names (Claude, Cursor, Copilot, Gemini, etc.), phrases such as “ai-generated,” and co-authorship markers so reviewers stay blinded to AI usage.
 
 ### Installation
 
-To install the hooks, run the provided script from the root of your repository. See `git-hooks-template/README.md` for more details. Note that these hooks are **repository-specific** and must be installed in each repo where you want them active
+Run the following from the repository root (install `pre-commit` first if you don’t already have it):
 
-- Install: `bash git-hooks-template/install-hooks.sh`
-- Reference: `git-hooks-template/README.md`
+```bash
+pip install pre-commit            # or use pipx/brew as you prefer
+# ensure the guard script is executable (only needed once per clone)
+chmod +x .config/ai-hooks/ai_guard.py
+pre-commit install --hook-type pre-commit --hook-type commit-msg
+```
 
-The installer will activate three hooks:
+To validate the hooks are active:
 
-- **commit-msg** - Blocks AI indicators in commit messages
-- **pre-commit** - Blocks AI indicators in staged file contents
+```bash
+pre-commit run --all-files
+```
+
+Behind the scenes both hooks call `.config/ai-hooks/ai_guard.py`, so updates to the guard logic propagate everywhere automatically. For more details, see `/.config/ai-hooks/README.md`
 
 > Reminder to update your [status](https://forms.gle/SLXdJk3SbjHCYnpd9) once you have completed this step.
 
