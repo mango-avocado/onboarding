@@ -87,7 +87,7 @@ test("rejects invalid pound conversion", () => {
 
 test("accepts Kelvin conversions with string values", () => {
   const result = convert("temperature", "273", "K", "C");
-  strictEqual(result, -0.14999999999997726);
+  strictEqual(result, -0.15);
 });
 
 test("accepts meter conversions with valid values", () => {
