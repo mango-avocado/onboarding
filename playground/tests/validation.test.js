@@ -21,6 +21,22 @@ test("rejects NaN value", () => {
   );
 });
 
+test("rejects empty string", () => {
+  throws(
+    () => convert("temperature", "", "C", "F"),
+    /invalid.*number|numeric/i,
+    "Should throw error for empty string"
+  );
+});
+
+test("rejects null value", () => {
+  throws(
+    () => convert("temperature", null, "C", "F"),
+    /invalid.*number|numeric/i,
+    "Should throw error for null"
+  );
+});
+
 test("rejects unknown conversion type", () => {
   throws(
     () => convert("volume", 100, "L", "gal"),
