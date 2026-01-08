@@ -73,3 +73,33 @@ test("handles very precise input values", () => {
   const result = convert("distance", 1.234567, "km", "mi");
   strictEqual(result, 0.77); // Should round to config precision
 });
+
+test("Kelvin conversion respects precision", () => {
+  const result = convert("temperature", 273, "K", "C");
+  strictEqual(result, -0.15); // 273 - 273.15 = -0.15
+});
+
+test("meter conversion respects precision", () => {
+  const result = convert("distance", 1234.5678, "m", "km");
+  strictEqual(result, 1.23); // Rounded to 2 decimals
+});
+
+test("pound conversion respects precision", () => {
+  const result = convert("weight", 1, "lb", "oz");
+  strictEqual(result, 16.00); // Should maintain precision format
+});
+
+test("handles very small Kelvin temperatures", () => {
+  const result = convert("temperature", 1, "K", "C");
+  strictEqual(result, -272.15);
+});
+
+test("meter to mile conversion respects precision", () => {
+  const result = convert("distance", 5000, "m", "mi");
+  strictEqual(result, 3.11); // 5000 / 1609.34 = 3.1068... → 3.11
+});
+
+test("gram to pound conversion respects precision", () => {
+  const result = convert("weight", 1000, "g", "lb");
+  strictEqual(result, 2.20); // 1000 / 453.592 = 2.2046... → 2.20
+});

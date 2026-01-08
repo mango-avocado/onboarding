@@ -60,3 +60,42 @@ test("accepts zero", () => {
   const result = convert("temperature", 0, "C", "F");
   strictEqual(result, 32);
 });
+
+test("rejects invalid Kelvin conversion", () => {
+  throws(
+    () => convert("temperature", 100, "K", "X"),
+    /Unsupported temperature conversion/i,
+    "Should throw error for invalid target unit"
+  );
+});
+
+test("rejects invalid meter conversion", () => {
+  throws(
+    () => convert("distance", 100, "m", "yards"),
+    /Unsupported distance conversion/i,
+    "Should throw error for unsupported unit"
+  );
+});
+
+test("rejects invalid pound conversion", () => {
+  throws(
+    () => convert("weight", 100, "lb", "kg"),
+    /Unsupported weight conversion/i,
+    "Should throw error for unsupported unit"
+  );
+});
+
+test("accepts Kelvin conversions with string values", () => {
+  const result = convert("temperature", "273", "K", "C");
+  strictEqual(result, -0.14999999999997726);
+});
+
+test("accepts meter conversions with valid values", () => {
+  const result = convert("distance", 1000, "m", "km");
+  strictEqual(result, 1);
+});
+
+test("accepts pound conversions with valid values", () => {
+  const result = convert("weight", 16, "oz", "lb");
+  strictEqual(result, 1);
+});
